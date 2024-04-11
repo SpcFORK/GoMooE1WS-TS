@@ -245,6 +245,13 @@ function sendBP_HTML(res: any, head: string, html: string, ...functionScripts: a
 
 // ---
 
+/**
+ * @param {express.Application} app - Express application
+ *
+ * @param cb - Express Callback function
+ *
+ * If CB returns false, the request is not processed.
+ */
 function createCompressionRoute(app: express.Application, cb?: (req: express.Request, res: express.Response) => {}) {
   app.use(express.static("./bp-gm1/w"));
 

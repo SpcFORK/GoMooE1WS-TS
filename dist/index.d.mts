@@ -158,6 +158,13 @@ declare function packWModule(mod: any): string;
 declare function packWModules(...mods: any[]): string;
 declare function packScriptTagInvoker(...scripts: any[]): string;
 declare function sendBP_HTML(res: any, head: string, html: string, ...functionScripts: any[]): [any, any, boolean];
+/**
+ * @param {express.Application} app - Express application
+ *
+ * @param cb - Express Callback function
+ *
+ * If CB returns false, the request is not processed.
+ */
 declare function createCompressionRoute(app: express.Application, cb?: (req: express.Request, res: express.Response) => {}): void;
 
 declare const bpws_BP_HOOKIN: typeof BP_HOOKIN;

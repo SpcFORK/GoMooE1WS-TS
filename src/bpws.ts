@@ -266,10 +266,9 @@ function createCompressionRoute(app: express.Application, cb?: (req: express.Req
 
       res
         .type('json')
-        .send(JSON.stringify({
-          file_content,
+        .send(JSON.stringify(
           comp_content,
-        }))
+        ))
     }
   })
 }

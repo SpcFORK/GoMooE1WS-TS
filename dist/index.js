@@ -918,8 +918,10 @@ function createCompressionRoute(app, cb) {
       if (!fs.existsSync(file_path))
         return res.sendStatus(404);
       const file_content = fs.readFileSync(file_path, "utf8"), comp_content = bp.encode(file_content);
+      var tempContent = Object.assign({}, comp_content);
+      delete tempContent.uriString;
       res.type("json").send(JSON.stringify(
-        comp_content
+        tempContent
       ));
     }
   });

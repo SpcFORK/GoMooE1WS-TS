@@ -264,10 +264,13 @@ function createCompressionRoute(app: express.Application, cb?: (req: express.Req
       const file_content = fs.readFileSync(file_path, "utf8"),
         comp_content = bp.encode(file_content);
 
+      var tempContent: Partial<bp.EncodeResult> = Object.assign({}, comp_content);
+      delete tempContent.uriString;
+
       res
         .type('json')
         .send(JSON.stringify(
-          comp_content,
+          tempContent,
         ))
     }
   })

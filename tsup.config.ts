@@ -6,7 +6,7 @@ const CPR = `
 `.trim()
 
 export default defineConfig({
-  entry: ['src/'],
+  entry: ['src/index.ts', 'src/bp-gm1/w/index.js'],
   splitting: false,
   sourcemap: false,
   clean: true,

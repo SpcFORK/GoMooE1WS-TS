@@ -1,3 +1,5 @@
+// GoMooEncoder1-Webserver-TS
+// Copyright (C) 2024  SpcFORK
 "use strict";
 
 // src/bp-gm1/w/index.js

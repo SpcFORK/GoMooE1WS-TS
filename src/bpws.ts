@@ -1,3 +1,6 @@
+// GoMooEncoder1-Webserver-TS
+// Copyright (C) 2024  SpcFORK
+
 import * as bp from "./bp-gm1/bp"
 import * as fs from "fs";
 import * as path from "path";

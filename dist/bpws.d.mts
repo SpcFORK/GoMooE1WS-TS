@@ -1,4 +1,4 @@
-import { b as bp_d } from './bp.d-wVHM5gGo.mjs';
+import { b as bp_d } from './bp.d-TonR61zm.mjs';
 import { JSDOM } from 'jsdom';
 
 declare const BP_SRC: () => string;

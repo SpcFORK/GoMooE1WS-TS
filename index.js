@@ -1,3 +1,6 @@
+// GoMooEncoder1-Webserver-TS
+// Copyright (C) 2024  SpcFORK
+
 const { bpws } = require("./dist/index");
 const express = require("express");
 

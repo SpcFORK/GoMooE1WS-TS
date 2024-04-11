@@ -1,3 +1,6 @@
+// GoMooEncoder1-Webserver-TS
+// Copyright (C) 2024  SpcFORK
+
 // @ Constants
 declare const CHUNK_LENGTH: number;
 declare const CHUCK_LENGTH_SPEED: number;

@@ -1,3 +1,6 @@
+// GoMooEncoder1-Webserver-TS
+// Copyright (C) 2024  SpcFORK
+
 // src/bp-gm1/w/index.js
 (() => {
   var u = (n, t) => () => (t || n((t = { exports: {} }).exports, t), t.exports);

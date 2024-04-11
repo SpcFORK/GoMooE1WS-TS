@@ -1,3 +1,5 @@
+// GoMooEncoder1-Webserver-TS
+// Copyright (C) 2024  SpcFORK
 "use strict";
 var __create = Object.create;
 var __defProp = Object.defineProperty;

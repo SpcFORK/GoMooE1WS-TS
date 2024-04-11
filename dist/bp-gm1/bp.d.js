@@ -1,3 +1,5 @@
+// GoMooEncoder1-Webserver-TS
+// Copyright (C) 2024  SpcFORK
 "use strict";
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;

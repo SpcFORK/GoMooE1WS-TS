@@ -717,6 +717,7 @@ __export(bpws_exports, {
   BP_SRC: () => BP_SRC,
   bp: () => bp,
   codeToIIFE: () => codeToIIFE,
+  createCompressionRoute: () => createCompressionRoute,
   functionToIIFE: () => functionToIIFE,
   makeCommentBlock: () => makeCommentBlock,
   makeDocument: () => makeDocument,
@@ -725,11 +726,13 @@ __export(bpws_exports, {
   packWModule: () => packWModule,
   packWModules: () => packWModules,
   sendBP_HTML: () => sendBP_HTML,
+  unpackDocument: () => unpackDocument,
   w_JSHTMLUnpack: () => w_JSHTMLUnpack
 });
 var bp = __toESM(require_bp());
 var fs = __toESM(require("fs"));
 var path = __toESM(require("path"));
+var express = __toESM(require("express"));
 var import_jsdom = require("jsdom");
 function chaosWindow() {
   return globalThis.window;
@@ -823,6 +826,16 @@ ${body}
 </html>`
   );
 }
+function unpackDocument(doc) {
+  if (typeof doc === "string")
+    doc = new import_jsdom.JSDOM(doc);
+  const { window: window2 } = doc;
+  if (!window2)
+    throw new Error("No window object");
+  const head = window2.document.head.innerHTML;
+  const body = window2.document.body.innerHTML;
+  return { head, body };
+}
 function packWModule(mod) {
   const modStr = typeof mod === "string" ? mod : functionToIIFE("s");
   return `<script>${modStr}</script>`;
@@ -890,6 +903,28 @@ function sendBP_HTML(res, head, html, ...functionScripts) {
   const scriptRoot = makeCommentBlock("BP_UNPACKER_ARCHIVE", builtSMpl, true);
   const dom = makeDocument(head, scriptRoot);
   return [res.send(dom.serialize()), compHTML, (dom.window.close(), true)];
+}
+function createCompressionRoute(app, cb) {
+  app.use(express.static("./bp-gm1/w"));
+  app.get("/bpws/compress/:file", (req, res) => {
+    var cbTemp;
+    if (cb)
+      cbTemp = cb(req, res);
+    if (cbTemp !== false) {
+      const file = req.params.file;
+      if (file.includes(".."))
+        return res.sendStatus(403);
+      const file_path = path.join(__dirname, "../front", file);
+      if (!fs.existsSync(file_path))
+        return res.sendStatus(404);
+      const file_content = fs.readFileSync(file_path, "utf8");
+      const comp_content = bp.encode(file_content);
+      res.type("json").send(JSON.stringify({
+        file_content,
+        comp_content
+      }));
+    }
+  });
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

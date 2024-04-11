@@ -16,6 +16,7 @@
   "author": "SpcFORK",
   "license": "MIT",
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   },

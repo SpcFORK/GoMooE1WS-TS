@@ -50,7 +50,13 @@ app.get('/def', (req, res) => {
 })
 
 app.use(express.static("front"));
-app.use(express.static("./bpws/bp-gm1/w"));
+bpws.createCompressionRoute(app, (req, res) => {
+  const password = req.query.password;
+  if (password !== 'secretPassword') {
+    res.status(401).send('Unauthorized: Incorrect password');
+    return false;
+  }
+});
 
 // ---
 

@@ -5,6 +5,8 @@ import * as bp from "./bp-gm1/bp"
 import * as fs from "fs";
 import * as path from "path";
 
+import * as express from "express";
+
 import { JSDOM } from "jsdom";
 
 function chaosWindow() { return (globalThis.window as any) }
@@ -140,6 +142,17 @@ function makeDocument(head: string = "", body: string = ""): JSDOM {
   );
 }
 
+function unpackDocument(doc: Partial<typeof globalThis>): { head: string; body: string } {
+  if (typeof doc === "string") (doc as JSDOM) = new JSDOM(doc);
+
+  const { window } = doc;
+  if (!window) throw new Error("No window object");
+
+  const head = window.document.head.innerHTML;
+  const body = window.document.body.innerHTML;
+  return { head, body };
+}
+
 function packWModule(mod: any): string {
   const modStr: string = typeof mod === "string" ? mod : functionToIIFE("s");
   return `<script>${modStr}</script>`;
@@ -232,14 +245,50 @@ function sendBP_HTML(res: any, head: string, html: string, ...functionScripts: a
 
 // ---
 
+function createCompressionRoute(app: express.Application, cb?: (req: express.Request, res: express.Response) => {}) {
+  app.use(express.static("./bp-gm1/w"));
+
+  app.get("/bpws/compress/:file", (req, res) => {
+    var cbTemp: any;
+    if (cb) cbTemp = cb(req, res);
+
+    if (cbTemp !== false) {
+      const file = req.params.file;
+
+      // Prevent Directory Traversal Exp
+      if (file.includes("..")) return res.sendStatus(403);
+
+      const file_path = path.join(__dirname, "../front", file);
+      if (!fs.existsSync(file_path)) return res.sendStatus(404);
+
+      const file_content = fs.readFileSync(file_path, "utf8");
+      const comp_content = bp.encode(file_content);
+
+      res
+        .type('json')
+        .send(JSON.stringify({
+          file_content,
+          comp_content,
+        }))
+    }
+  })
+}
+
 export {
   // @ COMPRESSION
   BP_HOOKIN,
 
+  createCompressionRoute,
+
   BP_SRC,
   w_JSHTMLUnpack,
   makeDocument,
+
+  // @ REQUESTS
   sendBP_HTML,
+  unpackDocument,
+  // ---
+
   // ---
 
   // @ JS-CORE

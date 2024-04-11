@@ -111,7 +111,7 @@
       let t = [];
       for (let e in n)
         t.push(new C(e, n[e]));
-      for (; t.length > 1;) {
+      for (; t.length > 1; ) {
         t.sort((l, d) => l.freq - d.freq);
         let e = t.shift(), r = t.shift(), o = new C(null, e.freq + r.freq);
         o.left = e, o.right = r, t.push(o);
@@ -160,65 +160,55 @@
     typeof N < "u" && (N.exports = ne);
   });
   var ie = u((nn, O) => {
-    var oe = {
-      caseChunk({ transformedString: n, originalIndex: t }) {
-        return `<Bull_Chunk:${n}|${t}:>`;
-      }, caseBull({ chunk: n }) {
-        return `<Bull:${n}:>`;
-      }
-    };
+    var oe = { caseChunk({ transformedString: n, originalIndex: t }) {
+      return `<Bull_Chunk:${n}|${t}:>`;
+    }, caseBull({ chunk: n }) {
+      return `<Bull:${n}:>`;
+    } };
     typeof globalThis.window < "u" && (globalThis.window.casing = oe);
     typeof O < "u" && (O.exports = oe);
   });
   var le = u((tn, k) => {
-    var re = {
-      encode(n) {
-        let t = (e) => `(${e})`;
-        return n.replace(/\d+/g, (e) => t(e.split("").map((r) => String.fromCharCode(65 + parseInt(r))).join("")));
-      }, decode(n) {
-        return n.replace(/\((.*?)\)/g, (t, e) => e.split("").map((r) => r.charCodeAt(0) - 65).join(""));
-      }
-    };
+    var re = { encode(n) {
+      let t = (e) => `(${e})`;
+      return n.replace(/\d+/g, (e) => t(e.split("").map((r) => String.fromCharCode(65 + parseInt(r))).join("")));
+    }, decode(n) {
+      return n.replace(/\((.*?)\)/g, (t, e) => e.split("").map((r) => r.charCodeAt(0) - 65).join(""));
+    } };
     typeof globalThis.window < "u" && (globalThis.window.AvoidEnc = re);
     typeof k < "u" && (k.exports = re);
   });
   var ce = u((on, L) => {
-    var de = {
-      encode(n) {
-        return n.replace(/\]\(/g, "\u03E2").replace(/\)\[/g, "\u03E3").replace(/\]\{/g, "\u03E0").replace(/\}\[/g, "\u03E1").replace(/\)\{/g, "\u03DE").replace(/\}\(/g, "\u03DF").replace(/\(\[/g, "{").replace(/\]\)/g, "}").replace(/\[\(/g, "<").replace(/\)\]/g, ">");
-      }, decode(n) {
-        return n.replace(/Ϣ/g, "](").replace(/ϣ/g, ")[").replace(/Ϡ/g, "]{").replace(/ϡ/g, "}[").replace(/Ϟ/g, "){").replace(/ϟ/g, "}(").replace(/\{/g, "([").replace(/\}/g, "])").replace(/\</g, "[(").replace(/\>/g, ")]");
-      }
-    };
+    var de = { encode(n) {
+      return n.replace(/\]\(/g, "\u03E2").replace(/\)\[/g, "\u03E3").replace(/\]\{/g, "\u03E0").replace(/\}\[/g, "\u03E1").replace(/\)\{/g, "\u03DE").replace(/\}\(/g, "\u03DF").replace(/\(\[/g, "{").replace(/\]\)/g, "}").replace(/\[\(/g, "<").replace(/\)\]/g, ">");
+    }, decode(n) {
+      return n.replace(/Ϣ/g, "](").replace(/ϣ/g, ")[").replace(/Ϡ/g, "]{").replace(/ϡ/g, "}[").replace(/Ϟ/g, "){").replace(/ϟ/g, "}(").replace(/\{/g, "([").replace(/\}/g, "])").replace(/\</g, "[(").replace(/\>/g, ")]");
+    } };
     typeof globalThis.window < "u" && (globalThis.window.BracketEncoder = de);
     typeof L < "u" && (L.exports = de);
   });
   var fe = u((rn, T) => {
-    var se = {
-      chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", encode(n = "") {
-        let t = this.chars, e = "", r = 0;
-        for (; r < n.length;) {
-          let o = n.charCodeAt(r++), l = n.charCodeAt(r++), d = n.charCodeAt(r++), s = o >> 2, a = (o & 3) << 4 | l >> 4, c = isNaN(l) ? 64 : (l & 15) << 2 | d >> 6, f = isNaN(d) ? 64 : d & 63;
-          e += [s, a, c, f].map((g) => t[g]).join("");
-        }
-        return e = e.replace(/=+$/, ""), e;
-      }, decode(n = "") {
-        let t = this.chars, e = "", r = 0;
-        for (n = n.replace(/[^A-Za-z0-9\+\/\=]/g, ""); r < n.length;) {
-          let o = t.indexOf(n.charAt(r++)), l = t.indexOf(n.charAt(r++)), d = t.indexOf(n.charAt(r++)), s = t.indexOf(n.charAt(r++)), a = o << 2 | l >> 4, c = (l & 15) << 4 | d >> 2, f = (d & 3) << 6 | s;
-          e += String.fromCharCode(a), d !== 64 && (e += String.fromCharCode(c)), s !== 64 && (e += String.fromCharCode(f));
-        }
-        return e = e.replace(/[\x00\uffff]+$/g, ""), e;
+    var se = { chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", encode(n = "") {
+      let t = this.chars, e = "", r = 0;
+      for (; r < n.length; ) {
+        let o = n.charCodeAt(r++), l = n.charCodeAt(r++), d = n.charCodeAt(r++), s = o >> 2, a = (o & 3) << 4 | l >> 4, c = isNaN(l) ? 64 : (l & 15) << 2 | d >> 6, f = isNaN(d) ? 64 : d & 63;
+        e += [s, a, c, f].map((g) => t[g]).join("");
       }
-    };
+      return e = e.replace(/=+$/, ""), e;
+    }, decode(n = "") {
+      let t = this.chars, e = "", r = 0;
+      for (n = n.replace(/[^A-Za-z0-9\+\/\=]/g, ""); r < n.length; ) {
+        let o = t.indexOf(n.charAt(r++)), l = t.indexOf(n.charAt(r++)), d = t.indexOf(n.charAt(r++)), s = t.indexOf(n.charAt(r++)), a = o << 2 | l >> 4, c = (l & 15) << 4 | d >> 2, f = (d & 3) << 6 | s;
+        e += String.fromCharCode(a), d !== 64 && (e += String.fromCharCode(c)), s !== 64 && (e += String.fromCharCode(f));
+      }
+      return e = e.replace(/[\x00\uffff]+$/g, ""), e;
+    } };
     typeof globalThis.window < "u" && (globalThis.window.base64 = se);
-    typeof globalThis.Buffer < "u" ? T.exports = {
-      encode(n) {
-        return globalThis.Buffer.from(n).toString("base64");
-      }, decode(n) {
-        return globalThis.Buffer.from(n, "base64").toString("ascii");
-      }
-    } : typeof T < "u" && (T.exports = se);
+    typeof globalThis.Buffer < "u" ? T.exports = { encode(n) {
+      return globalThis.Buffer.from(n).toString("base64");
+    }, decode(n) {
+      return globalThis.Buffer.from(n, "base64").toString("ascii");
+    } } : typeof T < "u" && (T.exports = se);
   });
   var he = u((ln, H) => {
     var D = $(), I = X(), Ie = Y(), { CHUNK_LENGTH: ae, CHUCK_LENGTH_SPEED: Ae, CHAR_EXCHANGE_COST: Re, calculateCost: _e, calculateChunks: qe } = te(), B = ie(), A = le(), ue = ce(), R = fe();

@@ -908,8 +908,7 @@ function createCompressionRoute(app, cb) {
       const file_path = path.join(__dirname, "../front", file);
       if (!fs.existsSync(file_path))
         return res.sendStatus(404);
-      const file_content = fs.readFileSync(file_path, "utf8");
-      const comp_content = bp.encode(file_content);
+      const file_content = fs.readFileSync(file_path, "utf8"), comp_content = bp.encode(file_content);
       res.type("json").send(JSON.stringify({
         file_content,
         comp_content
